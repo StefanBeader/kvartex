@@ -1,0 +1,189 @@
+<?php
+
+namespace App\Grids;
+
+use App\Models\Currency;
+use App\Models\Order;
+use App\User;
+use Nayjest\Grids\Grid;
+use Nayjest\Grids\GridConfig;
+use Nayjest\Grids\EloquentDataProvider;
+use Nayjest\Grids\FieldConfig;
+use Nayjest\Grids\IdFieldConfig;
+use Nayjest\Grids\SelectFilterConfig;
+use Nayjest\Grids\Components\THead;
+use Nayjest\Grids\Components\FiltersRow;
+use Nayjest\Grids\Components\OneCellRow;
+use Nayjest\Grids\Components\RecordsPerPage;
+use Nayjest\Grids\Components\ColumnsHider;
+use Nayjest\Grids\Components\HtmlTag;
+use Nayjest\Grids\Components\TFoot;
+use Nayjest\Grids\Components\TotalsRow;
+use Illuminate\Support\Facades\Config;
+use Nayjest\Grids\Components\Base\RenderableRegistry;
+use Nayjest\Grids\Components\ColumnHeadersRow;
+use Nayjest\Grids\Components\CsvExport;
+use Nayjest\Grids\Components\ExcelExport;
+use Nayjest\Grids\Components\Filters\DateRangePicker;
+use Nayjest\Grids\Components\Laravel5\Pager;
+use Nayjest\Grids\Components\RenderFunc;
+use Nayjest\Grids\Components\ShowingRecords;
+use Nayjest\Grids\DbalDataProvider;
+use Nayjest\Grids\FilterConfig;
+
+class OrdersGrid
+{
+
+    public static function create()
+    {
+        $query = static::query();
+        return static::gridInit($query);
+    }
+
+    # Let's take a Eloquent query as data provider
+    # Some params may be predefined, other can be controlled using grid components
+    public static function query()
+    {
+        return (new Order())
+            ->newQuery();
+    }
+
+    public static function gridInit($query)
+    {
+
+# Instantiate & Configure Grid
+        return new Grid(
+            (new GridConfig)
+                # Grids name used as html id, caching key, filtering GET params prefix, etc
+                # If not specified, unique value based on file name & line of code will be generated
+                ->setName('orders_grid')
+                # See all supported data providers in sources
+                ->setDataProvider(new EloquentDataProvider($query))
+                # Setup caching, value in minutes, turned off in debug mode
+                ->setCachingTime(5)
+                # Setup table columns
+                ->setColumns([
+                    (new FieldConfig)
+                        ->setName('id')
+                        ->setLabel('Broj')
+                        ->setSortable(true)
+                    ,
+                    (new FieldConfig)
+                        ->setName('user_id')
+                        ->setLabel('Korisnik')
+                        ->setCallback(function ($val) {
+                            return User::find($val)->name;
+                        })
+                        ->addFilter(
+                            (new SelectFilterConfig())
+                                ->setName('user_id')
+                                ->setOperator(FilterConfig::OPERATOR_EQ)
+                                ->setOptions(User::getTraders())
+                                ->setSubmittedOnChange(true)
+                        )
+                        ->setSortable(true)
+                    ,
+                    (new FieldConfig)
+                        ->setName('currency_id')
+                        ->setLabel('Valuta')
+                        ->setCallback(function ($val) {
+                            return Currency::getName($val);
+                        })
+                        ->addFilter(
+                            (new SelectFilterConfig)
+                                ->setName('currency_id')
+                                ->setOperator(FilterConfig::OPERATOR_EQ)
+                                ->setOptions(Currency::getOptions())
+                                ->setSubmittedOnChange(true)
+                        )
+                    ,
+                    (new FieldConfig)
+                        ->setName('amount')
+                        ->setLabel('Vrednost')
+                        ->setSortable(true)
+                    ,
+                    (new FieldConfig)
+                        ->setName('order_type_id')
+                        ->setLabel('Vrsta')
+                        ->setCallback(function ($val) {
+                            if ($val === Order::BUY) {
+                                return __('Kupovina');
+                            } elseif ($val === Order::SELL) {
+                                return __('Prodaja');
+                            }
+                        })
+                        ->addFilter(
+                            (new SelectFilterConfig)
+                                ->setName('order_type_id')
+                                ->setOperator(FilterConfig::OPERATOR_EQ)
+                                ->setOptions([
+                                    1 => __('Kupovina'),
+                                    2 => __('Prodaja')
+                                ])
+                                ->setSubmittedOnChange(true)
+                        )
+                    ,
+                    (new FieldConfig)
+                        ->setName('created_at')
+                        ->setLabel('Datum')
+                        ->setCallback(function ($val) {
+                            return $val->format('d-m-Y');
+                        })
+                        ->setSortable(true)
+                    ,
+                    (new FieldConfig)
+                        ->setName('id')
+                        ->setLabel('Akcije')
+                        ->setCallback(function ($val) {
+                            return "<a href='/order/{$val}'><span class='glyphicon glyphicon-eye-open'></span></a>";
+//                            return link_to('/order/' . $val, "<span class='glyphicon glyphicon-eye-open'></span>");
+                        })
+                    ,
+                ])
+                # Setup additional grid components
+                ->setComponents([
+                    # Renders table header (table>thead)
+                    (new THead)
+                        # Setup inherited components
+                        ->setComponents([
+                            # Add this if you have filters for automatic placing to this row
+                            new ColumnHeadersRow,
+                            new FiltersRow,
+                            # Row with additional controls
+                            (new OneCellRow)
+                                ->setComponents([
+                                    # Control for specifying quantity of records displayed on page
+                                    (new RecordsPerPage)
+                                        ->setVariants([
+                                            10,
+                                            25,
+                                            50
+                                        ])
+                                    ,
+                                    # Control to show/hide rows in table
+                                    (new ColumnsHider)
+                                        ->setHiddenByDefault([
+                                        ])
+                                    ,
+                                    # Submit button for filters.
+                                    # Place it anywhere in the grid (grid is rendered inside form by default).
+                                    (new HtmlTag)
+                                        ->setTagName('button')
+                                        ->setAttributes([
+                                            'type' => 'submit',
+                                            # Some bootstrap classes
+                                            'class' => 'btn btn-primary'
+                                        ])
+                                        ->setContent('Filter')
+                                ])
+                                # Components may have some placeholders for rendering children there.
+                                ->setRenderSection(THead::SECTION_BEGIN)
+                        ])
+                    ,
+                    # Renders table footer (table>tfoot)
+                    (new TFoot)
+
+                ])
+        );
+    }
+}
