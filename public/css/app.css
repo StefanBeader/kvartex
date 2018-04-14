@@ -212,7 +212,12 @@ section:hover button.showForm {
 }
 
 .btn-dark {
+    color: #1d1e20;
+    border: 4px solid #1d1e20;
+}
 
+.btn-dark:hover {
+    color: #1d1e20;
 }
 
 #buyPostSubmitView,

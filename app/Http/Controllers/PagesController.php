@@ -20,4 +20,9 @@ class PagesController extends Controller
     {
         return view('frontPages.contact');
     }
+
+    public function sendMessage(Request $request)
+    {
+
+    }
 }

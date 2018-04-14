@@ -13,6 +13,7 @@ Route::get('/', 'PagesController@homepage');
 Route::get('/about', 'PagesController@about');
 Route::get('/contact', 'PagesController@contact');
 Route::get('/sendEmail', 'PagesController@sendEmail');
+Route::post('/contact/sendMessage', 'ContactMessageController@sendMessage');
 Route::get('/getValues', 'CryptoCurrencyController@getValues');
 
 Route::get('/logout', function () {

@@ -1,48 +1,79 @@
 @extends('layouts.master')
 
+@section('customStyles')
+    <style>
+        #yellow {
+            background-color: #f2c902;
+        }
+        #dark {
+            background-color: #1d1e20;
+        }
+        .social-media-logos {
+            height: 70px;
+            max-width: 100%;
+            margin-right: 15px;
+            transition: all .5s;
+        }
+
+        .social-media-logos:hover {
+            transform: scale(1.2);
+        }
+    </style>
+@endsection
+
 @section('main')
+    <div class="container-fluid">
+        <div class="row">
+            <section id="yellow" class="col-md-6">
+                <div>
+                    <h2>{{__('Posaljite nam poruku')}}</h2>
+                    {{Form::open(['url' => '/contact/sendMessage', 'method' => 'POST'])}}
 
-    <div class="container">
-        <h1>{{__('Kontakt')}}</h1>
-        <div id="contactGrid">
-            <div id="contactForm">
-                {{Form::open(['url' => '/sendEmail', 'method' => 'POST'])}}
-                <div class="formElement">
-                    <label for="">{{__('Ime')}}</label>
-                    <input type="text" name="name" required>
-                </div>
-                <div class="formElement">
-                    <label for="">{{__('Email')}}</label>
-                    <input type="email" name="email" required>
-                </div>
-                <div class="formElement">
-                    <label for="">{{__('Poruka')}}</label>
-                    <textarea type="text" name="message" required></textarea>
-                </div>
+                    <div class="form-group">
+                        <label for="">{{__('Ime i Prezime')}}</label>
+                        {{Form::text('name', '', ['class' => 'form-control'])}}
+                        @if ($errors->has('name'))
+                            <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label for="">{{__('Email')}}</label>
+                        {{Form::email('email', '', ['class' => 'form-control'])}}
+                        @if ($errors->has('email'))
+                            <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label for="">{{__('Poruka')}}</label>
+                        {{Form::textarea('message', '', ['class' => 'form-control'])}}
+                        @if ($errors->has('message'))
+                            <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('message') }}</strong>
+                                    </span>
+                        @endif
+                    </div>
+                    <button type="submit" class="btn btn-dark">{{__('Posalji')}}</button>
 
-                <input type="submit" value="{{__('Posalji')}}" class="button yellow">
-                {{Form::close()}}
-            </div>
-
-            <div id="contactInfo">
-                <div>
-                    <span>{{__('Telefon')}}:</span>
-                    <span></span>
+                    {{Form::close()}}
                 </div>
+            </section>
+            <section id="dark" class="col-md-6">
                 <div>
-                    <span>{{__('Email')}}:</span>
-                    <span></span>
+                    <a href="https://www.facebook.com/groups/1145391685476366/" target="_blank">
+                        <img class="social-media-logos" src="{{asset('img/facebook-logo-button.svg')}}" alt="">
+                    </a>
+                    <a href="">
+                        <img class="social-media-logos" src="{{asset('img/linkedin-logo.svg')}}" alt="">
+                    </a>
+                    <a href="">
+                        <img class="social-media-logos" src="{{asset('img/twitter-logo-button.svg')}}" alt="">
+                    </a>
                 </div>
-                <div>
-                    <span>{{__('Facebook')}}:</span>
-                    <span></span>
-                </div>
-                <div>
-                    <span>{{__('Twitter')}}:</span>
-                    <span></span>
-                </div>
-            </div>
+            </section>
         </div>
     </div>
-
 @endsection
