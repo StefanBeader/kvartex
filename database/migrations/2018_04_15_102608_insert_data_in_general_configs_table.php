@@ -16,7 +16,7 @@ class InsertDataInGeneralConfigsTable extends Migration
             [
                 'id' => 1,
                 'primary_wallet' => 'cex',
-                'bank_account' => NULL,
+                'bank_account' => 1111,
                 'min_order_amount' => 5000,
                 'max_order_amount' => 100000,
             ]
