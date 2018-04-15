@@ -6,6 +6,12 @@
         </a>
     </li>
     <li>
+        <a href="{{URL::to('/dashboard')}}">
+            <span class="glyphicon glyphicon-home"></span>
+            <span class="linkText">{{__('Dashboard')}}</span>
+        </a>
+    </li>
+    <li>
         <a href="{{URL::to('/user')}}">
             <span class="glyphicon glyphicon-user"></span>
             <span class="linkText">{{__('Korisnici')}}</span>
@@ -29,14 +35,8 @@
             <span class="linkText">{{__('Valute')}}</span>
         </a>
     </li>
-    {{--<li>--}}
-        {{--<a href="">--}}
-            {{--<span class="glyphicon glyphicon-usd"></span>--}}
-            {{--<span class="linkText">{{__('Finansije')}}</span>--}}
-        {{--</a>--}}
-    {{--</li>--}}
     <li>
-        <a href="">
+        <a href="{{URL::to('/config')}}">
             <span class="glyphicon glyphicon-cog"></span>
             <span class="linkText">{{__('Konfiguracije')}}</span>
         </a>

@@ -35,6 +35,8 @@ Route::post('/submitOrder', 'OrderController@store');
 Route::get('/messages', 'MessageController@index')->middleware('auth');
 Route::post('/sendMessage', 'MessageController@sendMessage')->middleware('auth');
 
+//EXCHANGE
+Route::get('/exchange', 'ExchangeController@index')->middleware('auth');
 
 Route::get('/getWalletForCurrency', 'CurrencyController@getWalletForCurrency');
 /*
@@ -49,16 +51,13 @@ Route::group(['middleware' => ['role:admin']], function() {
     Route::get('/dashboard', 'DashboardController@index')->middleware('auth');
 
 //GENERAL CONFIG
-    Route::get('/config/{config}', 'GeneralConfigController@edit')->middleware('auth');
+    Route::get('/config', 'GeneralConfigController@edit')->middleware('auth');
 
 //MESSAGES
     Route::get('/dashboardMessages', 'MessageController@dashboardMessages')->middleware('auth');
     Route::get('/dashboardUserMessages', 'MessageController@dashboardUserMessages')->middleware('auth');
     Route::post('/sendMessageReplay', 'MessageController@sendMessageReplay')->middleware('auth');
     Route::post('/getNewMessagesFromUser', 'MessageController@getNewMessagesFromUser')->middleware('auth');
-
-//EXCHANGE
-    Route::get('/exchange', 'ExchangeController@index')->middleware('auth');
 
 //CURRENCY
     Route::post('/currency', 'CurrencyController@store');

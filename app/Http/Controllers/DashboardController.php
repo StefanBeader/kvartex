@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Grids\MessagesGrid;
+use App\Models\Order;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -13,7 +16,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard.index');
+        $numberOfOrdersToday = Order::whereDate('created_at', Carbon::today())->count();
+        $messagesGrid = MessagesGrid::create();
+        return view('dashboard.index', compact('numberOfOrdersToday', 'messagesGrid'));
     }
 
     /**

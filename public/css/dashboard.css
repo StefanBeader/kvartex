@@ -150,3 +150,8 @@ ul li {
 #menuDock:hover {
     color: #1C4E80 !important;
 }
+
+.panel-brand .panel-heading {
+    background-color: #0091D5;
+    color: white;
+}
