@@ -12,7 +12,7 @@ class InsertDataInGeneralConfigsTable extends Migration
      */
     public function up()
     {
-        DB::table('general_config')->insert(
+        DB::table('general_configs')->insert(
             [
                 'id' => 1
             ]
