@@ -1,7 +1,9 @@
 <div class="container">
     <nav>
         <div id="brand">
-            <img id="logo" src="{{asset('img/logo_png.png')}}" alt="">
+            <div id="logo">
+                <img  src="{{asset('img/logo_png.png')}}" alt="">
+            </div>
             <a href="">KvartEx</a>
         </div>
         <ul id="links">

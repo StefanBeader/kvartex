@@ -7,6 +7,24 @@ a {
     text-decoration: none;
 }
 
+.form-control {
+    border-radius: 0;
+    height: 44px;
+    font-size: 16px;
+}
+.form-control:focus {
+    border-color: #f2c902;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(242,201,2,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(242,201,2,.6);
+}
+
+.input-group-addon {
+    background-color: #f2c902;
+    color: #1d1e20;
+    border-color: #f2c902;
+}
+
 /*GENERAL END*/
 
 /*NAVIGATION*/
@@ -45,11 +63,18 @@ nav {
 
 #brand {
     align-self: center;
+    display: grid;
+    grid-template-columns: 40px auto;
+    grid-column-gap: 15px;
+    align-items: center;
 }
 
 #logo {
     height: 30px;
-    margin-right: 10px;
+}
+
+#logo img {
+    height: 100%;
 }
 
 #brand a {
