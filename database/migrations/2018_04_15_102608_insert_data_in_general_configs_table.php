@@ -14,7 +14,11 @@ class InsertDataInGeneralConfigsTable extends Migration
     {
         DB::table('general_configs')->insert(
             [
-                'id' => 1
+                'id' => 1,
+                'primary_wallet' => 'cex',
+                'bank_account' => NULL,
+                'min_order_amount' => 5000,
+                'max_order_amount' => 100000,
             ]
         );
     }
