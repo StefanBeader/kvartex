@@ -43,6 +43,10 @@
         #buyFormContainer {
             display: none;
         }
+
+        section {
+            height: calc(100vh - 200px);
+        }
     </style>
 @endsection
 
@@ -171,6 +175,9 @@
                 </div>
             </section>
         </div>
+        <div class="row">
+            @include('components.coinValues')
+        </div>
     </div>
 @endsection
 
@@ -179,4 +186,5 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js">
     </script>
     {{Html::script('js/sendOrder.js')}}
+    {{Html::script('js/coinValues.js')}}
 @endsection

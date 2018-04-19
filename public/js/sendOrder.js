@@ -18,7 +18,7 @@ $(document).ready(function () {
         var orderType = $(this).data('type');
         var form = $("#" + orderType + "Form");
         var orderTypeId = orderType === 'buy' ? 1 : 2;
-        form.hide();
+        $("#" + orderType + "FormContainer").fadeOut();
 
         let data = {
             currency_id: $("#" + orderType + "Form " + "select[name='currency_id']").val(),
@@ -65,6 +65,7 @@ function closeForm(button) {
     $("#" + orderType + "FormContainer").hide();
     $(".showForm[data-type='" + orderType + "']").fadeIn();
     $("#" + orderType + "Background").fadeIn();
+    $("#" + orderType + "Button").fadeIn();
 }
 
 function submitOrder(data, orderType) {

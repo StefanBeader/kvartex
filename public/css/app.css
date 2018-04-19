@@ -3,7 +3,7 @@
 body {
     font-family: 'Open Sans', sans-serif;
 }
-a {
+a:hover {
     text-decoration: none;
 }
 
@@ -23,6 +23,17 @@ a {
     background-color: #f2c902;
     color: #1d1e20;
     border-color: #f2c902;
+}
+
+section {
+    height: calc(100vh - 100px);
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+.sectionContainer {
+    width: 50%;
 }
 
 /*GENERAL END*/
@@ -154,12 +165,6 @@ nav {
 /*HOMEPAGE END*/
 
 /*EXCHANGE*/
-section {
-    height: calc(100vh - 100px);
-    display: grid;
-    align-content: center;
-    justify-content: center;
-}
 
 section button {
     display: block;
@@ -265,7 +270,10 @@ section:hover button.showForm {
 
 @media only screen and (max-width: 850px) {
     section {
-        height: calc(50vh - 50px);
+        min-height: calc(50vh - 50px);
+    }
+    .sectionContainer {
+        width: 100%;
     }
     #sellBackground {
         display: none !important;
@@ -273,11 +281,14 @@ section:hover button.showForm {
     #buyBackground {
         display: none !important;
     }
+    #links, #auth {
+        display: none;
+    }
 }
 
 @media only screen and (max-width: 450px) {
     section {
-        height: calc(50vh - 50px);
+        min-height: calc(50vh - 50px);
     }
 
     #sellBackground {

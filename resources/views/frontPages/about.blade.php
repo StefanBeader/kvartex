@@ -8,9 +8,6 @@
             grid-template-columns: auto;
         }
         #yellow div {
-            width: 50%;
-            align-self: center;
-            justify-self: center;
             text-align: justify;
         }
         #yellow div h2 {
@@ -36,7 +33,7 @@
     <div class="container-fluid">
         <div class="row">
             <section id="yellow" class="col-md-6">
-                <div>
+                <div class="sectionContainer">
                     <h2>{{_('O nama')}}</h2>
 
                     <p>Cilj KvartEX PLATFORME je okupljanje ljubitelja kriptovalute na jedno mesto.</p>
@@ -51,7 +48,7 @@
                 </div>
             </section>
             <section id="dark" class="col-md-6">
-               
+                <div class="sectionContainer"></div>
             </section>
         </div>
     </div>
