@@ -35,7 +35,10 @@ class OrderController extends Controller
         OrderStatus::create([
             'order_id' => $order->id
         ]);
-        return 'success';
+        return [
+            'message' => 'success',
+            'order' => $order
+        ];
     }
 
     /**

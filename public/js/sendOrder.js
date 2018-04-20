@@ -69,7 +69,6 @@ function closeForm(button) {
 }
 
 function submitOrder(data, orderType) {
-
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -79,7 +78,10 @@ function submitOrder(data, orderType) {
         '/submitOrder',
         data,
         function (response) {
-            if (response === 'success') {
+            if (response.message === 'success') {
+                $(".bank-slip-amount span").text(response.order.amount);
+                $(".bank-slip-message span").text(response.order.id);
+                $(".bank-slip-payment-purpose span").text(response.order.id);
                 $("#" + orderType + "PostSubmitView").fadeIn();
             }
         }

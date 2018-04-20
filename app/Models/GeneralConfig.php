@@ -17,4 +17,9 @@ class GeneralConfig extends Model
     {
         return static::find(1)->max_order_amount;
     }
+
+    public static function getBankAccountNumber()
+    {
+        return static::find(1)->bank_account;
+    }
 }

@@ -33,7 +33,7 @@
             z-index: 101;
         }
 
-        #buyButton button{
+        #buyButton button {
             background-color: #f2c902;
             border: 4px solid #1d1e20;
             color: #1d1e20;
@@ -43,9 +43,39 @@
         #buyFormContainer {
             display: none;
         }
-
         section {
             height: calc(100vh - 200px);
+        }
+        .bank-slip {
+            position: relative;
+        }
+        .bank-slip-info-overlay {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+        .bank-slip-amount {
+            position: absolute;
+            top: 65px;
+            right: 50px;
+        }
+        .bank-slip-bank-account-number {
+            position: absolute;
+            top: 112px;
+            right: 100px;
+        }
+        .bank-slip-message {
+            position: absolute;
+            top: 155px;
+            right: 150px;
+        }
+        .bank-slip-payment-purpose {
+            position: absolute;
+            top: 135px;
+            left: 100px;
         }
     </style>
 @endsection
@@ -95,7 +125,8 @@
                         {{Form::hidden('order_type_id', '2', ['id' => 'order_type_id'])}}
                     </div>
                     <div>
-                        <button type="button" data-type="buy" class="btn btn-order cancelOrderButton">{{__('Otkazi')}}</button>
+                        <button type="button" data-type="buy"
+                                class="btn btn-order cancelOrderButton">{{__('Otkazi')}}</button>
                         <button type="button" data-type="buy"
                                 class="btn btn-order submitOrderButton pull-right">{{__('Podnesi zahtev')}}
                         </button>
@@ -103,13 +134,17 @@
                     {{Form::close()}}
                 </div>
                 <div id="buyPostSubmitView">
-
-                    <div class="form-group">
-                        <label for="">{{__('Dinarski racun za uplatu')}}</label>
-                        {{Form::text('bank_account', '', ['readonly' => 'readonly', 'class' => 'form-control'])}}
+                    <div class="bank-slip">
+                        <img src="{{asset('img/uplatnica.png')}}" class="img-responsive" alt="">
+                        <div class="bank-slip-info-overlay">
+                            <div class="bank-slip-amount"><span></span>,00</div>
+                            <div class="bank-slip-bank-account-number">{{\App\Models\GeneralConfig::getBankAccountNumber()}}</div>
+                            <div class="bank-slip-message">PR<span></span></div>
+                            <div class="bank-slip-payment-purpose">PR<span></span></div>
+                        </div>
                     </div>
                     <div>
-                        <button class="btn btn-order" data-type="buy" class="closePostViewButton">{{__('Zatvori')}}</button>
+                        <button class="btn btn-order closePostViewButton" data-type="buy">{{__('Zatvori')}}</button>
                     </div>
                 </div>
             </section>
@@ -154,7 +189,8 @@
                         {{Form::hidden('order_type_id', '2', ['id' => 'order_type_id'])}}
                     </div>
                     <div>
-                        <button type="button" data-type="sell" class="btn btn-order cancelOrderButton">{{__('Otkazi')}}</button>
+                        <button type="button" data-type="sell"
+                                class="btn btn-order cancelOrderButton">{{__('Otkazi')}}</button>
                         <button type="button" data-type="sell"
                                 class="btn btn-order submitOrderButton pull-right">{{__('Podnesi zahtev')}}
                         </button>
