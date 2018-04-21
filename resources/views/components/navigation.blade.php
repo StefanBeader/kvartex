@@ -2,15 +2,27 @@
     <nav>
         <div id="brand">
             <div id="logo">
-                <img  src="{{asset('img/logo_png.png')}}" alt="">
+                <a href="{{URL::to('/')}}">
+                    <img src="{{asset('img/logo_png.png')}}" class="img-responsive" alt="">
+                </a>
             </div>
-            <a href="">KvartEx</a>
+            <a href="{{URL::to('/')}}">KvartEx</a>
         </div>
         <ul id="links">
-            <li><a href="{{URL::to('/')}}">{{__('Naslovna')}}</a></li>
-            <li><a href="{{URL::to('/about')}}">{{__('O nama')}}</a></li>
-            <li><a href="{{URL::to('/exchange')}}" class="disabled">{{__('Menjacnica')}}</a></li>
-            <li><a href="{{URL::to('/contact')}}">{{__('Kontakt')}}</a></li>
+            <li>
+                <a href="{{URL::to('/')}}" class="{{ Request::is('/') ? 'active' : '' }}">{{__('Naslovna')}}</a>
+            </li>
+            <li>
+                <a href="{{URL::to('/about')}}" class="{{ Request::is('about') ? 'active' : '' }}">{{__('O nama')}}</a>
+            </li>
+            <li>
+                <a href="{{URL::to('/exchange')}}"
+                   class="{{ Request::is('exchange') ? 'active' : '' }}">{{__('Menjačnica')}}</a>
+            </li>
+            <li>
+                <a href="{{URL::to('/contact')}}"
+                   class="{{ Request::is('contact') ? 'active' : '' }}">{{__('Kontakt')}}</a>
+            </li>
         </ul>
         <div id="auth">
             <div class="btn-group">
@@ -25,9 +37,9 @@
                 </button>
                 <ul class="dropdown-menu">
                     @if(Auth::user())
-                        <li><a href="{{URL::to('/account?ordersLimit=5')}}">{{__('Vas Nalog')}}</a></li>
+                        <li><a href="{{URL::to('/account?ordersLimit=5')}}">{{__('Vaš Nalog')}}</a></li>
                         @if(!Entrust::hasRole('admin'))
-                        <li><a href="{{URL::to('/messages')}}">{{__('Posalji poruku Adminu')}}</a></li>
+                            <li><a href="{{URL::to('/messages')}}">{{__('Pošalji poruku Adminu')}}</a></li>
                         @endif
                         @if(Entrust::hasRole('admin'))
                             <li><a href="{{URL::to('/dashboard')}}">{{__('Dashboard')}}</a></li>

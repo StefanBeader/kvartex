@@ -3,7 +3,8 @@
 body {
     font-family: 'Open Sans', sans-serif;
 }
-a:hover {
+a:hover,
+a:focus {
     text-decoration: none;
 }
 
@@ -25,6 +26,12 @@ a:hover {
     border-color: #f2c902;
 }
 
+.invalid-feedback {
+    color: #a94442;
+    margin-top: 10px;
+    display: block;
+}
+
 section {
     height: calc(100vh - 100px);
     display: grid;
@@ -34,6 +41,20 @@ section {
 
 .sectionContainer {
     width: 50%;
+}
+
+#yellow {
+    background-color: #f2c902;
+}
+#yellow p, #yellow h2, #yellow h3, #yellow h4, #yellow h5, #yellow h6, #yellow label {
+    color: #1d1e20;
+}
+#dark {
+    background-color: #1d1e20;
+}
+#dark p,
+#dark h2, #dark h3, #dark h4, #dark h5, #dark h6, #dark label {
+    color: #f2c902;
 }
 
 /*GENERAL END*/
@@ -68,7 +89,8 @@ nav {
     padding: 10px 20px;
 }
 
-#links li a:hover {
+#links li a:hover,
+#links li a.active {
     color: #f2c902;
 }
 

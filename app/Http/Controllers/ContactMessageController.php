@@ -18,7 +18,7 @@ class ContactMessageController extends Controller
                ->withInput();
        }
        ContactMessage::storeMessage($request->all());
-
+       $request->session()->flash('status', 'Task was successful!');
        return redirect()->back();
    }
 }

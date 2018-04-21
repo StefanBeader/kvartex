@@ -2,21 +2,32 @@
 
 @section('customStyles')
     <style>
-        #yellow {
-            background-color: #f2c902;
-        }
-        #dark {
-            background-color: #1d1e20;
-        }
         .social-media-logos {
             height: 70px;
             max-width: 100%;
             margin-right: 15px;
             transition: all .5s;
         }
-
         .social-media-logos:hover {
             transform: scale(1.2);
+        }
+
+        .modal-header {
+            background-color: #1d1e20;
+            color: #f2c902;
+            border-bottom: none;
+        }
+
+        .modal-body {
+            background-color: #f2c902;
+        }
+        .modal-body img {
+            height: 150px;
+            margin: 30px auto;
+        }
+        .modal-footer {
+            background-color: #1d1e20;
+            border-top: none;
         }
     </style>
 @endsection
@@ -26,7 +37,7 @@
         <div class="row">
             <section id="yellow" class="col-md-6">
                 <div>
-                    <h2>{{__('Posaljite nam poruku')}}</h2>
+                    <h2>{{__('Pošaljite nam poruku')}}</h2>
                     {{Form::open(['url' => '/contact/sendMessage', 'method' => 'POST'])}}
 
                     <div class="form-group">
@@ -56,7 +67,7 @@
                                     </span>
                         @endif
                     </div>
-                    <button type="submit" class="btn btn-dark">{{__('Posalji')}}</button>
+                    <button type="submit" class="btn btn-dark">{{__('Pošalji')}}</button>
 
                     {{Form::close()}}
                 </div>
@@ -76,4 +87,30 @@
             </section>
         </div>
     </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="messageSuccess">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{__('Uspešno ste poslali poruku')}}</h4>
+                </div>
+                <div class="modal-body">
+                    <img src="{{asset('img/ok.svg')}}" alt="" class="img-responsive">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-yellow" data-dismiss="modal">{{__('Zatvori')}}</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+@endsection
+
+@section('customScripts')
+    <script>
+        $(document).ready(function () {
+           if ({{\Illuminate\Support\Facades\Session::has('status')}}) {
+                $("#messageSuccess").modal('show');
+           }
+        });
+    </script>
 @endsection

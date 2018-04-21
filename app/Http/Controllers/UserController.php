@@ -41,69 +41,31 @@ class UserController extends Controller
         return view('users.show');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        return view('users.edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     public function userAccount(Request $request)
     {
         $user = User::findOrFail(Auth::user()->id);
-        $orders = $user->orders()->orderByDesc('created_at')->limit($request->ordersLimit)->get();
-        return view('users.account', compact('user', 'orders'));
+        $ordersLimit = $request->ordersLimit ? : 5;
+        $orders = $user->orders()->orderByDesc('created_at')->limit($ordersLimit)->get();
+        return view('users.account', compact('user', 'orders', 'ordersLimit'));
     }
 
     public function userAccountUpdate(Request $request)
     {
-        $user = User::findOrFail(Auth::user()->id);
-
         if ($request->password) {
             $updateData = $request->all();
         }else {
             $updateData = $request->except('password');
         }
-
-        $validator = Validator::make($updateData, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-        ]);
-
+        $validator = Validator::make($updateData, User::rules());
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
+        if ($request->password) {
+            $updateData['password'] = bcrypt($updateData['password']);
+        }
+        $user = User::findOrFail(Auth::user()->id);
         $user->update($updateData);
 
         return redirect('/account');
-
     }
 }

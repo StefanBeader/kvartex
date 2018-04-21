@@ -31,6 +31,15 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public static function rules()
+    {
+        return [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'password' => 'sometimes|confirmed|string|min:6'
+        ];
+    }
+
     public function getRoles()
     {
         $data = DB::table('role_user')->select('role_id')->where('user_id', $this->id)->get()->pluck('role_id')->toArray();
