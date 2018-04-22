@@ -43,6 +43,10 @@
             border-radius: 4px;
             margin-bottom: 15px;
         }
+
+        #orders .label {
+            color: #333;
+        }
     </style>
 
 @endsection
@@ -140,6 +144,8 @@
             </div>
         </div>
     </section>
+    @php($message = 'Uspešno ste uneli podatke')
+    @include('components.notificationSuccess', compact('message'))
 @endsection
 
 @section('customScripts')
@@ -148,6 +154,10 @@
             $("#numberOfOrders").change(function () {
                 window.location.replace('/account?ordersLimit=' + $(this).val())
             });
+            var check = "{{Session::has('status')}}";
+            if (check) {
+                $("#notificationSuccess").modal('show');
+            }
         });
     </script>
 @endsection

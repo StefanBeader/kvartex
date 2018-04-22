@@ -1,10 +1,14 @@
 @extends('layouts.master')
 
 @section('main')
-    <div class="banner">
-        <div id="particles"></div>
-        <div class="bannerText">
-            <h1>{{__('Sve o kripto valutama na jednom mestu')}}</h1>
+    <div class="container-fluid">
+        <div class="row">
+                <div class="banner">
+                    <div id="particles"></div>
+                    <div class="bannerText">
+                        <h1>{{__('Sve o kripto valutama na jednom mestu')}}</h1>
+                    </div>
+                </div>
         </div>
     </div>
     <div class="container">

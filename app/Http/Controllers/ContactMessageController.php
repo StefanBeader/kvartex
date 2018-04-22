@@ -11,7 +11,6 @@ class ContactMessageController extends Controller
    public function sendMessage(Request $request)
    {
        $validator = Validator::make($request->all(), ContactMessage::$rules);
-
        if ($validator->fails()) {
            return redirect('/contact')
                ->withErrors($validator)

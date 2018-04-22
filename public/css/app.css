@@ -3,6 +3,7 @@
 body {
     font-family: 'Open Sans', sans-serif;
 }
+
 a:hover,
 a:focus {
     text-decoration: none;
@@ -13,11 +14,12 @@ a:focus {
     height: 44px;
     font-size: 16px;
 }
+
 .form-control:focus {
     border-color: #f2c902;
     outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(242,201,2,.6);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(242,201,2,.6);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(242, 201, 2, .6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(242, 201, 2, .6);
 }
 
 .input-group-addon {
@@ -46,15 +48,37 @@ section {
 #yellow {
     background-color: #f2c902;
 }
+
 #yellow p, #yellow h2, #yellow h3, #yellow h4, #yellow h5, #yellow h6, #yellow label {
     color: #1d1e20;
 }
+
 #dark {
     background-color: #1d1e20;
 }
-#dark p,
-#dark h2, #dark h3, #dark h4, #dark h5, #dark h6, #dark label {
+
+#dark p, #dark h2, #dark h3, #dark h4, #dark h5, #dark h6, #dark label {
     color: #f2c902;
+}
+
+#notificationSuccess .modal-header {
+    background-color: #1d1e20;
+    color: #f2c902;
+    border-bottom: none;
+}
+
+#notificationSuccess .modal-body {
+    background-color: #f2c902;
+}
+
+#notificationSuccess .modal-body img {
+    height: 150px;
+    margin: 30px auto;
+}
+
+#notificationSuccess .modal-footer {
+    background-color: #1d1e20;
+    border-top: none;
 }
 
 /*GENERAL END*/
@@ -79,7 +103,7 @@ nav {
     margin: 0 50px 0 0;
 }
 
-#links li  {
+#links li {
     display: inline-block;
 }
 
@@ -133,7 +157,6 @@ nav {
     width: 400px;
 }
 
-
 /*NAVIGATION END*/
 
 /*HOMEPAGE*/
@@ -162,7 +185,7 @@ nav {
     grid-row: 1/1;
     grid-column: 1/1;
     background-color: #f2c902;
-    height: calc( 100vh - 200px);
+    height: calc(100vh - 200px);
 }
 
 #coinValues {
@@ -199,6 +222,7 @@ section button {
 section:hover button.showForm {
     font-size: 60px;
 }
+
 #buy {
     background-color: #f2c902;
 }
@@ -216,7 +240,6 @@ section:hover button.showForm {
     border: 4px solid #f2c902;
     color: #f2c902;
 }
-
 
 #buy .btn-order {
     border: 4px solid #1d1e20;
@@ -258,6 +281,7 @@ section:hover button.showForm {
     color: #f2c902;
     transform: scale(1.2);
 }
+
 .btn-yellow {
     color: #f2c902;
     border: 4px solid #f2c902;
@@ -273,8 +297,7 @@ section:hover button.showForm {
 }
 
 #buyPostSubmitView,
-#sellPostSubmitView
-{
+#sellPostSubmitView {
     display: none;
 }
 
@@ -282,27 +305,29 @@ section:hover button.showForm {
 
 /*CONTACT*/
 
-
 /*CONTACT END*/
 
 @media only screen and (max-width: 1050px) {
 
 }
 
-
 @media only screen and (max-width: 850px) {
     section {
         min-height: calc(50vh - 50px);
     }
+
     .sectionContainer {
         width: 100%;
     }
+
     #sellBackground {
         display: none !important;
     }
+
     #buyBackground {
         display: none !important;
     }
+
     #links, #auth {
         display: none;
     }
@@ -313,9 +338,14 @@ section:hover button.showForm {
         min-height: calc(50vh - 50px);
     }
 
+    .bannerText {
+        width: auto;
+    }
+
     #sellBackground {
         display: none !important;
     }
+
     #buyBackground {
         display: none !important;
     }

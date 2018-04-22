@@ -65,7 +65,7 @@ class UserController extends Controller
         }
         $user = User::findOrFail(Auth::user()->id);
         $user->update($updateData);
-
+        $request->session()->flash('status', 'Task was successful!');
         return redirect('/account');
     }
 }
