@@ -53,6 +53,7 @@ Route::group(['middleware' => ['role:admin']], function() {
     Route::get('/dashboard', 'DashboardController@index')->middleware('auth');
 
 //GENERAL CONFIG
+    Route::put('/config/update', 'GeneralConfigController@update')->middleware('auth');
     Route::get('/config', 'GeneralConfigController@edit')->middleware('auth');
 
 //MESSAGES

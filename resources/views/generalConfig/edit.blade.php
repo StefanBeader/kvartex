@@ -5,7 +5,7 @@
     <hr>
 
     <div class="col-md-6">
-        {{Form::open(['url' => 'config' . $config->id, 'method' => 'PUT'])}}
+        {{Form::open(['url' => 'config/update', 'method' => 'PUT'])}}
         <div class="form-group">
             <label for="">{{__('Primarni wallet')}}</label>
             {{Form::select('primary_wallet', ['cex' => 'CEX', 'bitstamp' => 'BitStamp'], '', ['class' => 'form-control'])}}

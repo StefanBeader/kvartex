@@ -30,6 +30,9 @@ $(document).ready(function () {
         if (orderType === "sell") {
             data.wallet = $("#wallet").val();
         }
+        if (orderType === "buy") {
+            data.bank_account = $(".bank-slip-bank-account-number").text();
+        }
         submitOrder(data, orderType);
     });
 
@@ -46,7 +49,6 @@ $(document).ready(function () {
 function getWalletNumber(currency_id) {
     $.get('/getWalletForCurrency?currency_id=' + currency_id, function (response) {
         if (response.status) {
-            console.log(response.data);
             $('#wallet').val(response.data);
             jQuery('#qrcode').qrcode(response.data);
         } else {

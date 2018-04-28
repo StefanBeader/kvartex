@@ -12,4 +12,13 @@ class GeneralConfigController extends Controller
         $config = GeneralConfig::findOrFail(1);
         return view('generalConfig.edit', compact('config'));
     }
+
+    public function update(Request $request)
+    {
+        $config = GeneralConfig::findOrFail(1);
+
+        $config->update($request->all());
+
+        return redirect()->back();
+    }
 }
