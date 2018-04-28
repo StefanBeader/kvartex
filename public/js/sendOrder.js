@@ -23,10 +23,13 @@ $(document).ready(function () {
         let data = {
             currency_id: $("#" + orderType + "Form " + "select[name='currency_id']").val(),
             amount: form.find("#amount").val(),
-            wallet: form.find("#wallet").val(),
+            wallet: $("input[name=wallet]").val(),
             bank_account: form.find("#bank_account").val(),
             order_type_id: orderTypeId,
         };
+        if (orderType === "sell") {
+            data.wallet = $("#wallet").val();
+        }
         submitOrder(data, orderType);
     });
 
@@ -43,6 +46,7 @@ $(document).ready(function () {
 function getWalletNumber(currency_id) {
     $.get('/getWalletForCurrency?currency_id=' + currency_id, function (response) {
         if (response.status) {
+            console.log(response.data);
             $('#wallet').val(response.data);
             jQuery('#qrcode').qrcode(response.data);
         } else {

@@ -46,6 +46,24 @@
 
         #orders .label {
             color: #333;
+            padding: 0;
+        }
+
+        #orders .input-group-addon {
+            font-size: 10px;
+            background-color: #1d1e20;
+            color: #f2c902;
+            border-color: #1d1e20;
+        }
+
+        .panel-body .form-control {
+            height: 24px;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        #yellow .sectionContainer {
+            width: 60%;
         }
     </style>
 
@@ -65,7 +83,8 @@
                             <div class="panel-heading" role="tab" id="headingOne">
                                 <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion"
-                                       href="#{{$order->id}}" aria-expanded="true" aria-controls="{{$order->id}}">
+                                       href="#{{$order->id}}" aria-expanded="true" aria-controls="{{$order->id}}"
+                                        onclick="setQrCode('{{$order->wallet}}', {{$order->id}})">
                                         {{__('Zahtev #') . $order->id}}
                                     </a>
                                 </h4>
@@ -78,6 +97,31 @@
                                     @elseif($order->order_type_id === \App\Models\Order::SELL)
                                         @include('users.partials._sellOrder', compact('order'))
                                     @endif
+                                    <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="">{{__('Realizacija nakon dospeća uplate po aktuelnom kursu.')}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>{{__('Status')}}</label>
+                                                    {{Form::text('', $order->status->getCodeLabel() . ' '
+                                                    . $order->status->updated_at->addHour(2)->format('d-m-Y H:i'), ['class' =>
+                                                     in_array($order->status->status_code, [1,3]) ? 'form-control alert-success' : 'form-control alert-danger',
+                                                    'readonly' => 'readonly'])}}
+                                                </div>
+                                                @if($order->status->status_code == \App\Models\OrderStatus::ACTIVE)
+                                                    <div class="cancelOrder">
+                                                        {{Form::open(['url' => '/order/cancel', 'method' => 'POST'])}}
+                                                        {{Form::hidden('status_code', \App\Models\OrderStatus::CANCELED)}}
+                                                        {{Form::hidden('order_id', $order->id)}}
+                                                        {{Form::submit(__('Poništi narudžbinu'), ['class' => 'btn btn-danger'])}}
+                                                        {{Form::close()}}
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -149,15 +193,28 @@
 @endsection
 
 @section('customScripts')
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js">
+    </script>
     <script>
         $(document).ready(function () {
+
             $("#numberOfOrders").change(function () {
-                window.location.replace('/account?ordersLimit=' + $(this).val())
+                window.location.replace('/account?ordersLimit=' + $(this).val());
             });
             var check = "{{Session::has('status')}}";
             if (check) {
                 $("#notificationSuccess").modal('show');
             }
+
+            var check = "{{Session::has('orderStatus')}}";
+            if (check) {
+                $("#orderStatus").modal('show');
+            }
         });
+        function setQrCode(wallet, order_id) {
+            $('.qrcode' + order_id).empty();
+            jQuery('.qrcode' + order_id).qrcode({width: 160, height: 160, text: wallet});
+        }
     </script>
 @endsection

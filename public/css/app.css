@@ -260,6 +260,14 @@ section:hover button.showForm {
     transition: all .5s;
 }
 
+.btn-danger {
+    background-color: #d9534f;
+}
+
+.btn-danger:hover {
+    color: white !important;
+}
+
 .dropdown-menu {
     background-color: #1d1e20;
     border: 4px solid #f2c902;

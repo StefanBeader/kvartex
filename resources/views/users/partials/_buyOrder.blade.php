@@ -1,22 +1,27 @@
-<h4>{{__('Prodaja kriptovalute')}}</h4>
+<h4>{{__('Kupovina kriptovalute')}}</h4>
 
 <div class="row">
     <div class="col-md-6">
-        <div>
-            <span class="label">{{__('Odabrana kriptovaluta: ')}}</span>
-            <span class="data">{{\App\Models\Currency::getName($order->currency_id)}}</span>
+        <div class="form-group">
+            <label>{{__('Odabrana kriptovaluta')}}</label>
+            {{Form::text('', \App\Models\Currency::getName($order->currency_id), ['class' => 'form-control', 'readonly' => 'readonly'])}}
         </div>
-
-        <div>
-            <span class="label">{{__('Iznos koji uplacujete: ')}}</span>
-            <span class="data">{{$order->amount}}</span>
+        <div class="form-group">
+            <label>{{__('Adresa Vašeg novčanika na koji se vrši uplata')}}</label>
+            {{Form::text('', $order->wallet, ['class' => 'form-control', 'readonly' => 'readonly'])}}
         </div>
-
+        <div class="form-group">
+            <label>{{__('U iznosu od')}}</label>
+            <div class="input-group">
+                {{Form::text('', $order->amount, ['class' => 'form-control', 'readonly' => 'readonly'])}}
+                <div class="input-group-addon">RSD</div>
+            </div>
+        </div>
     </div>
     <div class="col-md-6">
-        <div>
-            <p class="label">{{__('Adresa novcanika na koji vrsite uplatu: ')}}</p>
-            <span class="data">{{$order->wallet}}</span>
+        <div class="form-group">
+            <label>{{__('Račun na koji uplaćujete iznos u dinarskoj protivvrednosti')}}</label>
+            {{Form::text('', $order->bank_account, ['class' => 'form-control', 'readonly' => 'readonly'])}}
         </div>
     </div>
 </div>

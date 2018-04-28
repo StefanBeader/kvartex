@@ -39,6 +39,8 @@ Route::post('/sendMessage', 'MessageController@sendMessage')->middleware('auth')
 Route::get('/exchange', 'ExchangeController@index')->middleware('auth');
 
 Route::get('/getWalletForCurrency', 'CurrencyController@getWalletForCurrency');
+
+Route::post('/order/cancel', 'OrderStatusController@cancel')->middleware('auth');
 /*
 |--------------------------------------------------------------------------
 | BACKEND

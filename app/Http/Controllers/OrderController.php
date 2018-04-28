@@ -30,7 +30,6 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $data = array_add($request->all(), 'user_id', Auth::user()->id);
-
         $order = Order::create($data);
         OrderStatus::create([
             'order_id' => $order->id
