@@ -42,6 +42,7 @@
         #sellFormContainer,
         #buyFormContainer {
             display: none;
+            width: 50%;
         }
         section {
             height: calc(100vh - 200px);
@@ -77,6 +78,9 @@
             top: 135px;
             left: 100px;
         }
+        .invalid-feedback {
+            font-weight: bold;
+        }
     </style>
 @endsection
 
@@ -85,7 +89,7 @@
         <div class="row">
             <section id="buy" class="col-md-6">
                 <div class="action" id="buyButton">
-                    <button class="showForm" data-type="buy" type="button">{{__('Kupi')}}</button>
+                    <button class="showForm" data-type="buy" type="button">{{__('Kupi Kriptovalutu')}}</button>
                 </div>
                 <div class="background" id="buyBackground">
                     <svg viewbox=" 0 0 100 100">
@@ -108,25 +112,27 @@
                 <div id="buyFormContainer">
                     {{Form::open(['url' => 'offers', 'method' => 'POST', 'id' => 'buyForm'])}}
                     <div class="form-group">
-                        <label for="">{{__('Izaberite Kriptovalutu koju zelite da kupite')}}</label>
+                        <label for="">{{__('Izaberite Kriptovalutu koju želite da kupite')}}</label>
                         {{Form::select('currency_id',
                         \App\Models\Currency::getOptions(), '',
                         ['class' => 'form-control'])}}
                     </div>
                     <div class="form-group">
-                        <label for="">{{__('Unesite iznos koji zelite da kupite')}}</label>
+                        <label for="">{{__('Unesite dinarski iznos za koji želite da kupite kriptovalutu')}}</label>
                         {{Form::number('amount', '',
                         ['class' => 'form-control',
                         'id' => 'amount'])}}
+                        <span class='invalid-feedback buy_amount_error'></span>
                     </div>
                     <div class="form-group">
-                        <label for="">{{__('Vas wallet')}}</label>
+                        <label for="">{{__('Vaš novčanik od izabrane krptovalute')}}</label>
                         {{Form::text('wallet', \Illuminate\Support\Facades\Auth::user()->wallet, ['class' => 'form-control'])}}
+                        <span class='invalid-feedback buy_wallet_error'></span>
                         {{Form::hidden('order_type_id', '2', ['id' => 'order_type_id'])}}
                     </div>
                     <div>
                         <button type="button" data-type="buy"
-                                class="btn btn-order cancelOrderButton">{{__('Otkazi')}}</button>
+                                class="btn btn-order cancelOrderButton">{{__('Otkaži')}}</button>
                         <button type="button" data-type="buy"
                                 class="btn btn-order submitOrderButton pull-right">{{__('Podnesi zahtev')}}
                         </button>
@@ -150,7 +156,7 @@
             </section>
             <section id="sell" class="col-md-6">
                 <div class="action" id="sellButton">
-                    <button class="showForm" data-type="sell" type="button">{{__('Prodaj')}}</button>
+                    <button class="showForm" data-type="sell" type="button">{{__('Prodaj Kriptovalutu')}}</button>
                 </div>
                 <div class="background" id="sellBackground">
                     <svg viewbox=" 0 0 100 100">
@@ -173,24 +179,26 @@
                 <div id="sellFormContainer">
                     {{Form::open(['url' => 'offers', 'method' => 'POST', 'id' => 'sellForm'])}}
                     <div class="form-group">
-                        <label for="">{{__('Izaberite Kriptovalutu koju zelite da prodate')}}</label>
+                        <label for="">{{__('Izaberite kriptovalutu koju želite da prodate')}}</label>
                         {{Form::select('currency_id',
                         \App\Models\Currency::getOptions(), '',
                         ['class' => 'form-control', 'id' => 'currency_id'])}}
                     </div>
                     <div class="form-group">
-                        <label for="">{{__('Unesite iznos koji zelite da prodate')}}</label>
+                        <label for="">{{__('Unesite iznos kriptovalute koji želite da prodate')}}</label>
                         {{Form::number('amount', '',
                         ['class' => 'form-control', 'step' => 0.00000001, 'id' => 'amount'])}}
+                        <span class='invalid-feedback sell_amount_error'></span>
                     </div>
                     <div class="form-group">
-                        <label for="">{{__('Vas tekuci racun')}}</label>
-                        {{Form::text('bank_account', \Illuminate\Support\Facades\Auth::user()->bank_account, ['class' => 'form-control', 'id' => 'bank_account'])}}
+                        <label for="">{{__('Vaš dinarski tekući račun')}}</label>
+                        {{Form::text('bank_account', Auth::user()->bank_account, ['class' => 'form-control', 'id' => 'bank_account'])}}
                         {{Form::hidden('order_type_id', '2', ['id' => 'order_type_id'])}}
+                        <span class='invalid-feedback sell_bank_account_error'></span>
                     </div>
                     <div>
                         <button type="button" data-type="sell"
-                                class="btn btn-order cancelOrderButton">{{__('Otkazi')}}</button>
+                                class="btn btn-order cancelOrderButton">{{__('Otkaži')}}</button>
                         <button type="button" data-type="sell"
                                 class="btn btn-order submitOrderButton pull-right">{{__('Podnesi zahtev')}}
                         </button>
@@ -199,7 +207,7 @@
                 </div>
                 <div id="sellPostSubmitView">
                     <div class="form-group">
-                        <label for="">{{__('Adresa za uplatu kriptovalute')}}</label>
+                        <label for="">{{__('Novčanik za uplatu kriptovalute')}}</label>
                         {{Form::text('', '', ['class' => 'form-control', 'id' => 'wallet', 'readonly' => true])}}
                     </div>
                     <div id="qurcodeContainer">

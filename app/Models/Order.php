@@ -10,6 +10,16 @@ class Order extends Model
     const SELL = 2;
     protected $guarded = [];
 
+    public static function rules()
+    {
+        return [
+            'user_id' => 'required|int',
+            'amount' => 'required|int',
+            'bank_account' => 'required|string|max:20',
+            'wallet' => 'required|string',
+        ];
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User');

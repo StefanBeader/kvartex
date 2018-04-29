@@ -90,6 +90,15 @@ function submitOrder(data, orderType) {
                 $(".bank-slip-payment-purpose span").text(response.order.id);
                 $("#" + orderType + "PostSubmitView").fadeIn();
             }
+            if (response.message === 'error') {
+                $("#" + orderType + "Form .invalid-feedback").empty();
+                $("#" + orderType + "FormContainer").fadeIn();
+                var errors = response.errors;
+
+                $.each(errors, function (key, val) {
+                    $("." + orderType + "_" + key + "_error").text(val[0]);
+                });
+                }
         }
     );
 }

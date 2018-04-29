@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\OrderStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Validator;
 
 class OrderController extends Controller
 {
@@ -25,12 +26,24 @@ class OrderController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function store(Request $request)
     {
-        $data = array_add($request->all(), 'user_id', Auth::user()->id);
-        $order = Order::create($data);
+        $createData = array_add($request->all(), 'user_id', Auth::user()->id);
+
+        $validator = Validator::make($createData, Order::rules());
+
+        if ($validator->fails()) {
+            return [
+                'message' => 'error',
+                'errors' => $validator->getMessageBag()->toArray()
+            ];
+        }
+
+        $order = Order::create($createData);
+
+
         OrderStatus::create([
             'order_id' => $order->id
         ]);
@@ -48,6 +61,6 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-           return view('orders.show', compact('order'));
+        return view('orders.show', compact('order'));
     }
 }
