@@ -4,6 +4,7 @@ namespace App\Grids;
 
 use App\Models\Currency;
 use App\Models\Order;
+use App\Models\OrderStatus;
 use App\User;
 use Nayjest\Grids\Grid;
 use Nayjest\Grids\GridConfig;
@@ -45,7 +46,8 @@ class OrdersGrid
     public static function query()
     {
         return (new Order())
-            ->newQuery();
+            ->newQuery()
+            ->orderBy('created_at', 'DESC');
     }
 
     public static function gridInit($query)
@@ -54,19 +56,25 @@ class OrdersGrid
 # Instantiate & Configure Grid
         return new Grid(
             (new GridConfig)
-                # Grids name used as html id, caching key, filtering GET params prefix, etc
-                # If not specified, unique value based on file name & line of code will be generated
-                ->setName('orders_grid')
-                # See all supported data providers in sources
                 ->setDataProvider(new EloquentDataProvider($query))
-                # Setup caching, value in minutes, turned off in debug mode
-                ->setCachingTime(5)
-                # Setup table columns
+                ->setName('orders_grid')
+                ->setPageSize(10)
                 ->setColumns([
                     (new FieldConfig)
                         ->setName('id')
                         ->setLabel('Broj')
-                        ->setSortable(true)
+                    ,
+                    (new FieldConfig)
+                        ->setName('id')
+                        ->setLabel('Stauts')
+                        ->setCallback(function ($val) {
+                            $statusCode = OrderStatus::where('order_id', $val)->first()->status_code;
+                            if ($statusCode == 1) {
+                                return "<span class='glyphicon glyphicon-time alert-success'></span>";
+                            }else {
+                                return "<span class='glyphicon glyphicon-remove alert-danger'></span>";
+                            }
+                        })
                     ,
                     (new FieldConfig)
                         ->setName('user_id')
@@ -75,13 +83,10 @@ class OrdersGrid
                             return User::find($val)->name;
                         })
                         ->addFilter(
-                            (new SelectFilterConfig())
+                            (new FilterConfig())
                                 ->setName('user_id')
-                                ->setOperator(FilterConfig::OPERATOR_EQ)
-                                ->setOptions(User::getTraders())
-                                ->setSubmittedOnChange(true)
+                                ->setOperator(FilterConfig::OPERATOR_LIKE)
                         )
-                        ->setSortable(true)
                     ,
                     (new FieldConfig)
                         ->setName('currency_id')
@@ -100,7 +105,6 @@ class OrdersGrid
                     (new FieldConfig)
                         ->setName('amount')
                         ->setLabel('Vrednost')
-                        ->setSortable(true)
                     ,
                     (new FieldConfig)
                         ->setName('order_type_id')
@@ -129,14 +133,12 @@ class OrdersGrid
                         ->setCallback(function ($val) {
                             return $val->format('d-m-Y');
                         })
-                        ->setSortable(true)
                     ,
                     (new FieldConfig)
                         ->setName('id')
                         ->setLabel('Akcije')
                         ->setCallback(function ($val) {
                             return "<a href='/order/{$val}'><span class='glyphicon glyphicon-eye-open'></span></a>";
-//                            return link_to('/order/' . $val, "<span class='glyphicon glyphicon-eye-open'></span>");
                         })
                     ,
                 ])
@@ -158,11 +160,6 @@ class OrdersGrid
                                             10,
                                             25,
                                             50
-                                        ])
-                                    ,
-                                    # Control to show/hide rows in table
-                                    (new ColumnsHider)
-                                        ->setHiddenByDefault([
                                         ])
                                     ,
                                     # Submit button for filters.
