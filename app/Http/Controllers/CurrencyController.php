@@ -87,7 +87,13 @@ class CurrencyController extends Controller
 
     public function getWalletForCurrency(Request $request)
     {
-        $primaryWallet = 'wallet_' . GeneralConfig::find(1)->primary_wallet;
+        $liteCoinId = Currency::where('short_name', 'ltc')->first()->id;
+
+        if ($request->currency_id == $liteCoinId) {
+            $primaryWallet = 'wallet_bitstamp';
+        }else {
+            $primaryWallet = 'wallet_' . GeneralConfig::find(1)->primary_wallet;
+        }
 
         $currency = Currency::find($request->currency_id);
 
