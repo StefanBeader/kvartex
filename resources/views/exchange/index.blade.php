@@ -44,12 +44,15 @@
             display: none;
             width: 50%;
         }
+
         section {
             height: calc(100vh - 200px);
         }
+
         .bank-slip {
             position: relative;
         }
+
         .bank-slip-info-overlay {
             position: absolute;
             top: 0;
@@ -58,26 +61,36 @@
             font-size: 1.4em;
             font-weight: bold;
         }
+
         .bank-slip-amount {
             position: absolute;
             top: 65px;
             right: 50px;
         }
+
         .bank-slip-bank-account-number {
             position: absolute;
             top: 112px;
             right: 100px;
         }
+
         .bank-slip-message {
             position: absolute;
             top: 155px;
             right: 150px;
         }
+
         .bank-slip-payment-purpose {
             position: absolute;
             top: 135px;
             left: 100px;
         }
+        .bank-slip-receiver {
+            position: absolute;
+            top: 210px;
+            left: 40px;
+        }
+
         .invalid-feedback {
             font-weight: bold;
         }
@@ -137,6 +150,19 @@
                                 class="btn btn-order submitOrderButton pull-right">{{__('Podnesi zahtev')}}
                         </button>
                     </div>
+                    <div class="margin-top-small">
+                        <div class="form-group">
+                            <label for="">
+                                {{__('Realizacija nakon dospeća uplate po aktuelnom kursu sa provizijom od 5%.')}}
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="">
+                                {{__('Potvrđujem da su podaci koje sam uneo ispravni,
+                                razumem i prihvatam postupak transakcije i uslove po kojima se ona vrši.')}}
+                            </label>
+                        </div>
+                    </div>
                     {{Form::close()}}
                 </div>
                 <div id="buyPostSubmitView">
@@ -147,6 +173,7 @@
                             <div class="bank-slip-bank-account-number">{{\App\Models\GeneralConfig::getBankAccountNumber()}}</div>
                             <div class="bank-slip-message">PR<span></span></div>
                             <div class="bank-slip-payment-purpose">PR<span></span></div>
+                            <div class="bank-slip-receiver">{{\App\Models\GeneralConfig::getReceiverInfo()}}</div>
                         </div>
                     </div>
                     <div>
@@ -202,6 +229,19 @@
                         <button type="button" data-type="sell"
                                 class="btn btn-order submitOrderButton pull-right">{{__('Podnesi zahtev')}}
                         </button>
+                    </div>
+                    <div class="margin-top-small">
+                        <div class="form-group">
+                            <label for="">
+                                {{__('Realizacija nakon dospeća uplate po aktuelnom kursu sa provizijom od 5%.')}}
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="">
+                                {{__('Potvrđujem da su podaci koje sam uneo ispravni,
+                                razumem i prihvatam postupak transakcije i uslove po kojima se ona vrši.')}}
+                            </label>
+                        </div>
                     </div>
                     {{Form::close()}}
                 </div>

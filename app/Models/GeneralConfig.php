@@ -22,4 +22,9 @@ class GeneralConfig extends Model
     {
         return static::find(1)->bank_account;
     }
+
+    public static function getReceiverInfo()
+    {
+        return static::find(1)->receiver_info;
+    }
 }

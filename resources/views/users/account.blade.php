@@ -65,6 +65,7 @@
         #yellow .sectionContainer {
             width: 60%;
         }
+
         @media only screen and (max-width: 1450px) {
             #yellow .sectionContainer {
                 width: 80%;
@@ -105,7 +106,7 @@
                                     <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="">{{__('Realizacija nakon dospeća uplate po aktuelnom kursu.')}}</label>
+                                                    <label for="">{{__('Realizacija nakon dospeća uplate po aktuelnom kursu sa provizijom od 5%.')}}</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -125,6 +126,16 @@
                                                         {{Form::close()}}
                                                     </div>
                                                 @endif
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-small">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="">
+                                                        {{__('Potvrđujem da su podaci koje sam uneo ispravni,
+                                                        razumem i prihvatam postupak transakcije i uslove po kojima se ona vrši.')}}
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                 </div>
