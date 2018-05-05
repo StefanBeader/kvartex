@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('currency_id')->unsigned();
-            $table->integer('amount');
+            $table->double('amount');
             $table->string('bank_account')->nullable();
             $table->string('wallet')->nullable();
             $table->tinyInteger('order_type_id');

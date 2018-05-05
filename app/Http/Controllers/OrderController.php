@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Grids\OrdersGrid;
+use App\Models\CryptoCurrency;
+use App\Models\Currency;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use Illuminate\Http\Request;
@@ -32,7 +34,15 @@ class OrderController extends Controller
     {
         $createData = array_add($request->all(), 'user_id', Auth::user()->id);
 
-        $validator = Validator::make($createData, Order::rules());
+        $validationData = $createData;
+
+        if ($request->order_type_id == Order::SELL) {
+            $currency = strtolower(Currency::getName($request->currency_id));
+            $valueOfCurrencyInRsd = CryptoCurrency::find(1)->$currency * 100 * $request->amount;
+            $validationData['amount'] = $valueOfCurrencyInRsd;
+        }
+
+        $validator = Validator::make($validationData, Order::rules());
 
         if ($validator->fails()) {
             return [
