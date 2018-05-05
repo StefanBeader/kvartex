@@ -22,9 +22,11 @@
             background-color: #1d1e20;
             color: #f2c902;
         }
-
-        #dark img {
-
+        @media only screen and (max-width: 1450px) and (min-width: 1050px) {
+            #yellow div p {
+                font-size: 14px;
+                line-height: 18px;
+            }
         }
     </style>
 @endsection

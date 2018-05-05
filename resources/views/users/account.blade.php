@@ -65,6 +65,11 @@
         #yellow .sectionContainer {
             width: 60%;
         }
+        @media only screen and (max-width: 1450px) {
+            #yellow .sectionContainer {
+                width: 80%;
+            }
+        }
     </style>
 
 @endsection
