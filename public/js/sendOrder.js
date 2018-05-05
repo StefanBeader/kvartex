@@ -50,6 +50,7 @@ function getWalletNumber(currency_id) {
     $.get('/getWalletForCurrency?currency_id=' + currency_id, function (response) {
         if (response.status) {
             $('#wallet').val(response.data);
+            $("#qrcode").empty();
             jQuery('#qrcode').qrcode(response.data);
         } else {
             alert("Desila se greska, molimo pokusajte ponovo");
