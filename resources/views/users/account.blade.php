@@ -119,7 +119,7 @@
                                                 </div>
                                                 @if($order->status->status_code == \App\Models\OrderStatus::ACTIVE)
                                                     <div class="cancelOrder">
-                                                        {{Form::open(['url' => '/order/cancel', 'method' => 'POST'])}}
+                                                        {{Form::open(['url' => '/order/setStatus', 'method' => 'POST'])}}
                                                         {{Form::hidden('status_code', \App\Models\OrderStatus::CANCELED)}}
                                                         {{Form::hidden('order_id', $order->id)}}
                                                         {{Form::submit(__('Poništi narudžbinu'), ['class' => 'btn btn-danger'])}}

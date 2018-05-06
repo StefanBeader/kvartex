@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class OrderStatusController extends Controller
 {
-    public function cancel(Request $request)
+    public function setStatus(Request $request)
     {
         OrderStatus::where('order_id', $request->order_id)->update(['status_code' => $request->status_code]);
 
