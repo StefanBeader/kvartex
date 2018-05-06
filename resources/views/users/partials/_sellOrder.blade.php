@@ -1,5 +1,10 @@
 <h4>{{__('Prodaja kriptovalute')}}</h4>
-
+@php
+    $bank_account1 = substr($order->bank_account, 0, -15);
+    $bank_account2 = substr($order->bank_account, 0, -2);
+    $bank_account2 = substr($bank_account2, 3);
+    $bank_account3 = substr($order->bank_account, 0, -16);
+@endphp
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
@@ -12,7 +17,9 @@
         </div>
         <div class="form-group">
             <label>{{__('Vaš račun na koji će biti uplaćena dinarska protivvrednost')}}</label>
-            {{Form::text('', $order->bank_account, ['class' => 'form-control', 'readonly' => 'readonly'])}}
+            {{Form::text('',
+            $bank_account1 . '-' . $bank_account2 . '-' . $bank_account3,
+            ['class' => 'form-control', 'readonly' => 'readonly'])}}
         </div>
 
     </div>

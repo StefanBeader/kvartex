@@ -186,15 +186,15 @@
                     {{Form::password('password_confirmation', ['class' => 'form-control'])}}
                 </div>
 
-                <div class="form-group">
-                    <label for="">{{__('Dinarski Račun')}}</label>
-                    {{Form::text('bank_account', $user->bank_account, ['class' => 'form-control'])}}
-                    @if ($errors->has('bank_account'))
-                        <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('bank_account') }}</strong>
-                                    </span>
-                    @endif
-                </div>
+                {{--<div class="form-group">--}}
+                    {{--<label for="">{{__('Dinarski Račun')}}</label>--}}
+                    {{--{{Form::text('bank_account', $user->bank_account, ['class' => 'form-control'])}}--}}
+                    {{--@if ($errors->has('bank_account'))--}}
+                        {{--<span class="invalid-feedback">--}}
+                                        {{--<strong>{{ $errors->first('bank_account') }}</strong>--}}
+                                    {{--</span>--}}
+                    {{--@endif--}}
+                {{--</div>--}}
                 <div class="row">
                     <div class="col-lg-2 col-md-3">
                         {{Form::submit('Sačuvaj', ['class' => 'btn btn-yellow'])}}

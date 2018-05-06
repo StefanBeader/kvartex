@@ -14,7 +14,12 @@
 @endsection
 
 @section('main')
-
+    @php
+        $bank_account1 = substr($order->bank_account, 0, -15);
+        $bank_account2 = substr($order->bank_account, 0, -2);
+        $bank_account2 = substr($bank_account2, 3);
+        $bank_account3 = substr($order->bank_account, 0, -16);
+    @endphp
     <h1>{{__('Narudzbina')}}</h1>
     <hr>
 

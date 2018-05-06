@@ -20,7 +20,14 @@ class GeneralConfig extends Model
 
     public static function getBankAccountNumber()
     {
-        return static::find(1)->bank_account;
+        $bankAccount = static::find(1)->bank_account;
+        $bank_account1 = substr($bankAccount, 0, -15);
+        $bank_account2 = substr($bankAccount, 0, -2);
+        $bank_account2 = substr($bank_account2, 3);
+        $bank_account3 = substr($bankAccount, 0, -16);
+        return [
+            $bank_account1, $bank_account2, $bank_account3
+        ];
     }
 
     public static function getReceiverInfo()

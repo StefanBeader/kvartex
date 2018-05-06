@@ -22,7 +22,9 @@
         </div>
         <div class="form-group">
             <label for="">{{__('Bankovni Racun')}}</label>
-            {{Form::text('', $order->bank_account, ['class' => 'form-control', 'readonly' => 'readonly'])}}
+            {{Form::text('',
+            $bank_account1 . '-' . $bank_account2 . '-' . $bank_account3,
+            ['class' => 'form-control', 'readonly' => 'readonly'])}}
         </div>
         <div class="form-group">
             <label for="">{{__('Datum i Vreme Narudzbine')}}</label>

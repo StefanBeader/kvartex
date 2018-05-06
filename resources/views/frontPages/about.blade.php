@@ -50,7 +50,10 @@
                 </div>
             </section>
             <section id="dark" class="col-md-6">
-                <div class="sectionContainer"></div>
+                <div class="sectionContainer">
+                    <h2>{{__('Naš Tim')}}</h2>
+                    <p>{{__('Uskoro par reči i o nama...')}}</p>
+                </div>
             </section>
         </div>
     </div>

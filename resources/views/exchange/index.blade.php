@@ -94,6 +94,13 @@
         .invalid-feedback {
             font-weight: bold;
         }
+
+        #bankAccount {
+            display: grid;
+            grid-template-columns: 20% 1fr 15%;
+            grid-column-gap: 5px;
+        }
+
     </style>
 @endsection
 
@@ -170,7 +177,8 @@
                         <img src="{{asset('img/uplatnica.png')}}" class="img-responsive" alt="">
                         <div class="bank-slip-info-overlay">
                             <div class="bank-slip-amount"><span></span>,00</div>
-                            <div class="bank-slip-bank-account-number">{{\App\Models\GeneralConfig::getBankAccountNumber()}}</div>
+                            @php( $bankAccount = \App\Models\GeneralConfig::getBankAccountNumber())
+                            <div class="bank-slip-bank-account-number">{{$bankAccount[0] . '-' . $bankAccount[1] . '-' . $bankAccount[2]}}</div>
                             <div class="bank-slip-message">PR<span></span></div>
                             <div class="bank-slip-payment-purpose">PR<span></span></div>
                             <div class="bank-slip-receiver">{{\App\Models\GeneralConfig::getReceiverInfo()}}</div>
@@ -219,7 +227,11 @@
                     </div>
                     <div class="form-group">
                         <label for="">{{__('Vaš dinarski tekući račun')}}</label>
-                        {{Form::text('bank_account', Auth::user()->bank_account, ['class' => 'form-control', 'id' => 'bank_account'])}}
+                        <div id="bankAccount">
+                            {{Form::text('bank_account1', Auth::user()->bank_account, ['class' => 'form-control', 'id' => 'bank_account1', 'maxlength' => 3])}}
+                            {{Form::text('bank_account2', Auth::user()->bank_account, ['class' => 'form-control', 'id' => 'bank_account2', 'maxlength' => 13])}}
+                            {{Form::text('bank_account3', Auth::user()->bank_account, ['class' => 'form-control', 'id' => 'bank_account3', 'maxlength' => 2])}}
+                        </div>
                         {{Form::hidden('order_type_id', '2', ['id' => 'order_type_id'])}}
                         <span class='invalid-feedback sell_bank_account_error'></span>
                     </div>
@@ -271,4 +283,21 @@
     </script>
     {{Html::script('js/sendOrder.js')}}
     {{Html::script('js/coinValues.js')}}
+
+    <script>
+        $(document).ready(function () {
+            $("#bank_account2").focusout(function () {
+                var val = $(this).val();
+                if (val.length > 0) {
+                    var zeros = '';
+                    var diff = 13 - val.length;
+                    for (var i = 0; i < diff; i++) {
+                        zeros += "0";
+                    }
+                    $(this).val(zeros + val);
+                }
+            });
+        });
+    </script>
+
 @endsection

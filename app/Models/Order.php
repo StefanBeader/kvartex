@@ -15,7 +15,7 @@ class Order extends Model
         return [
             'user_id' => 'required|int',
             'amount' => "required|numeric|min:" . GeneralConfig::getMinAmount() . "|max:" . GeneralConfig::getMaxAmount(),
-            'bank_account' => 'required|string|max:18',
+            'bank_account' => 'required|string|max:18|min:18',
             'wallet' => 'required|string',
         ];
     }

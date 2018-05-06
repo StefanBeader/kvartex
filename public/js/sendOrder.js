@@ -24,14 +24,14 @@ $(document).ready(function () {
             currency_id: $("#" + orderType + "Form " + "select[name='currency_id']").val(),
             amount: form.find("#amount").val(),
             wallet: $("input[name=wallet]").val(),
-            bank_account: form.find("#bank_account").val(),
+            bank_account: form.find("#bank_account1").val() + form.find("#bank_account2").val() + form.find("#bank_account3").val(),
             order_type_id: orderTypeId,
         };
         if (orderType === "sell") {
             data.wallet = $("#wallet").val();
         }
         if (orderType === "buy") {
-            data.bank_account = $(".bank-slip-bank-account-number").text();
+            data.bank_account = $(".bank-slip-bank-account-number").text().replace(/[^0-9.]/g, "");;
         }
         submitOrder(data, orderType);
     });
