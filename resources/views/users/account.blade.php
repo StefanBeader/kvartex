@@ -160,6 +160,15 @@
                                     </span>
                     @endif
                 </div>
+                <div class="form-group">
+                    <label for="">{{__('Korisničko Ime')}}</label>
+                    {{Form::text('nickname', $user->nickname, ['class' => 'form-control'])}}
+                    @if ($errors->has('nickname'))
+                        <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('nickname') }}</strong>
+                                    </span>
+                    @endif
+                </div>
 
                 <div class="form-group">
                     <label for="">{{__('Email')}}</label>

@@ -50,6 +50,23 @@
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-user"></span>
+                        </div>
+                        <input id="nickname" type="text"
+                               class="form-control{{ $errors->has('nickname') ? ' is-invalid' : '' }}" name="nickname"
+                               value="{{ old('nickname') }}"
+                               placeholder="{{__('Vaše Korisničko Ime')}}"
+                        >
+                    </div>
+                    @if ($errors->has('nickname'))
+                        <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('nickname') }}</strong>
+                                    </span>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
                             <span class="glyphicon glyphicon-envelope"></span>
                         </div>
                         <input id="email" type="email"
