@@ -57,10 +57,13 @@ Route::group(['middleware' => ['role:admin']], function() {
     Route::get('/config', 'GeneralConfigController@edit')->middleware('auth');
 
 //MESSAGES
-    Route::get('/dashboardMessages', 'MessageController@dashboardMessages')->middleware('auth');
     Route::get('/dashboardUserMessages', 'MessageController@dashboardUserMessages')->middleware('auth');
     Route::post('/sendMessageReplay', 'MessageController@sendMessageReplay')->middleware('auth');
     Route::post('/getNewMessagesFromUser', 'MessageController@getNewMessagesFromUser')->middleware('auth');
+
+//CONTACT MESSAGES
+    Route::get('/contactMessages', 'ContactMessageController@index')->middleware('auth');
+    Route::get('/contactMessage/{id}', 'ContactMessageController@show')->middleware('auth');
 
 //CURRENCY
     Route::post('/currency', 'CurrencyController@store');

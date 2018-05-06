@@ -155,3 +155,9 @@ ul li {
     background-color: #0091D5;
     color: white;
 }
+
+@media screen and (min-width: 1050px) and (max-width: 1450px){
+    #main h1 {
+        font-size: 40px;
+    }
+}

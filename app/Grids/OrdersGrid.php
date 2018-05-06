@@ -70,9 +70,9 @@ class OrdersGrid
                         ->setCallback(function ($val) {
                             $statusCode = OrderStatus::where('order_id', $val)->first()->status_code;
                             if ($statusCode == 1) {
-                                return "<span class='glyphicon glyphicon-time alert-success'></span>";
+                                return "<span class='glyphicon glyphicon-stop alert-success'></span>";
                             }else {
-                                return "<span class='glyphicon glyphicon-remove alert-danger'></span>";
+                                return "<span class='glyphicon glyphicon-stop alert-danger'></span>";
                             }
                         })
                     ,

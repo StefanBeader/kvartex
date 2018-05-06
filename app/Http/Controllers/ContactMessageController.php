@@ -20,4 +20,16 @@ class ContactMessageController extends Controller
        $request->session()->flash('status', 'Task was successful!');
        return redirect()->back();
    }
+
+   public function index()
+   {
+       $contactMessages = ContactMessage::orderByDesc('created_at')->get();
+       return view('messages/dashboardMessages', compact('contactMessages'));
+   }
+
+    public function show($id)
+    {
+        $message = ContactMessage::find($id);
+        return view('messages/showContactMessage', compact('message'));
+    }
 }

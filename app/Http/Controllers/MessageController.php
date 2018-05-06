@@ -48,7 +48,7 @@ class MessageController extends Controller
         $message->body = $request->body;
         $message->save();
 
-        return redirect('/messages?user_id=' . $request->user_id);
+        return redirect('/dashboardUserMessages?user_id=' . $request->user_id);
     }
 
     public function dashboardMessages()

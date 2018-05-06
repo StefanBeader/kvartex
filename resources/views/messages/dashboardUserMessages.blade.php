@@ -2,20 +2,41 @@
 
 @section('customStyles')
     <style>
+
+        #main {
+            overflow: auto;
+        }
+        #messages {
+            height: 50vh;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
         .message {
-            padding: 10px 15px;
-            background-color: var(--main);
-            color: white;
+            display: grid;
+            grid-template-columns: 50% 50%;
             margin-bottom: 5px;
         }
-
-        .admin {
-            background-color: var(--orange);
-            color: white;
-        }
-
         .sort-list {
             list-style: none;
+        }
+        .sort-list li .user-message,
+        .sort-list li .admin-message
+        {
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+        }
+        .sort-list li .user-message {
+            grid-column: 1/2;
+            background-color: var(--main);
+        }
+        .sort-list li .admin-message {
+            grid-column: 2/3;
+            background-color: var(--orange);
+        }
+
+        time:hover {
+            cursor: pointer;
         }
     </style>
 @endsection
@@ -33,83 +54,56 @@
                 <div class="form-group">
                     <div class="input-group">
                         {{Form::text('body', '', ['class' => 'form-control', 'placeholder' => __('Nova Poruka')])}}
-                        <div class="input-group-addon">
-                            {{Form::submit('Posalji', ['class' => 'btn btn-block'])}}
-                        </div>
+                        <span class="input-group-btn">
+                            {{Form::submit('Posalji', ['class' => 'btn btn-primary'])}}
+                        </span>
                     </div>
                 </div>
                 {{Form::hidden('user_id', $user_id)}}
                 {{Form::close()}}
             </div>
         </div>
-        <div class="row">
-            <ul class="sort-list col-md-12"></ul>
+        <div class="row" id="messages">
+            <ul class="sort-list col-md-12">
+                @foreach($messages as $message)
+                    <li class="sort-item message" data-event-date="{{$message->created_at->timestamp}}">
+                        <div class="user-message">
+                            <span>{{$message->body}}</span>
+                            <time class="pull-right"
+                                  data-toggle="tooltip"
+                                  data-placement="bottom"
+                                  title="{{$message->created_at->addHours(2)->format('d-m-Y H:i:s')}}">
+                                {{$message->created_at->diffForHumans()}}
+                            </time>
+                        </div>
+                    </li>
+                @endforeach
+
+                @foreach($messageReplays as $message)
+                    <li class="sort-item message admin" data-event-date="{{$message->created_at->timestamp}}">
+                        <div class="admin-message">
+                            <span>{{$message->body}}</span>
+                            <time class="pull-right"
+                                  data-toggle="tooltip"
+                                  data-placement="bottom"
+                                  title="{{$message->created_at->addHours(2)->format('d-m-Y H:i:s')}}">
+                                {{$message->created_at->diffForHumans()}}
+                            </time>
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
         </div>
 @endsection
 @section('customScripts')
     <script>
         $(document).ready(function () {
-
-            var messages = JSON.parse('{!! $messages !!}');
-            var messageReplays = JSON.parse('{!! $messageReplays !!}');
-            createHtml(messages, messageReplays);
-            // setInterval(getNewMessages, 10000);
-        });
-        
-        function createHtml(messages, messageReplays) {
-
-            Object.keys(messages).map(function (key) {
-                $("ul.sort-list").append(
-                    '<li class="sort-item message" data-event-date="' + getTimestampFromDateTimeString(messages[key].created_at) + '">' +
-                    '<span>' + messages[key].body + '</span>' +
-                    '<time class="pull-right">' + messages[key].created_at + '</time>' +
-                    '</li>'
-                );
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
             });
-
-            Object.keys(messageReplays).map(function (key) {
-                $("ul.sort-list").append(
-                    '<li class="sort-item message admin" data-event-date="' + getTimestampFromDateTimeString(messageReplays[key].created_at) + '">' +
-                    '<span>' + messageReplays[key].body + '</span>' +
-                    '<time class="pull-right">' + messageReplays[key].created_at + '</time>' +
-                    '</li>'
-                );
-            });
-
-            sortMessages();
-        }
-
-        function getNewMessages() {
-            ajaxCallToDb();
-
-            // console.log(messages);
-        }
-        
-        function ajaxCallToDb() {
-            var data = {
-                user_id: '{{$user_id}}'
-            };
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.post(
-                '/getNewMessagesFromUser',
-                data,
-                function (response) {
-                    if (response.message === 'success') {
-                        if (response.data.length > 0) {
-                            insertNewMessages(response.data);
-                        }
-                    }
-                }
-            );
-        }
-        function insertNewMessages(messages) {
-            console.log(messages);
-        }
-        function sortMessages() {
+            setTimeout(function() {
+                location.reload();
+            }, 30000);
             (function($){
                 var container = $(".sort-list");
                 var items = $(".sort-item");
@@ -123,10 +117,6 @@
                 });
 
             })(jQuery);
-        }
-        function getTimestampFromDateTimeString(date) {
-            var dateTime = +new Date(date);
-            return Math.floor(dateTime / 1000);
-        }
+        });
     </script>
 @endsection

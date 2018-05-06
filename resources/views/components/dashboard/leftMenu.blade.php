@@ -18,9 +18,9 @@
         </a>
     </li>
     <li>
-        <a href="{{URL::to('/dashboardMessages')}}">
+        <a href="{{URL::to('/contactMessages')}}">
             <span class="glyphicon glyphicon-envelope"></span>
-            <span class="linkText">{{__('Poruke')}}</span>
+            <span class="linkText">{{__('Kontakt Poruke')}}</span>
         </a>
     </li>
     <li>

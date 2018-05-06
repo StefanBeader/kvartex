@@ -4,17 +4,13 @@
 
     <h1>{{__('Korisnici')}}</h1>
     <hr>
-    
-    <div id="actionBar">
-        <a href="{{URL::to('/user/create')}}" class="btn btn-primary">{{__('Napravi Korisnika')}}</a>
-    </div>
-    
+
     <table class="table table-striped">
         <thead>
             <th>{{__('Ime')}}</th>
             <th>{{__('Email')}}</th>
             <th>{{__('Prava')}}</th>
-            <th>{{__('Akcije')}}</th>
+            <th>{{__('Poruke')}}</th>
         </thead>
         <tbody>
         @foreach($users as $user)
@@ -23,8 +19,9 @@
                 <td>{{$user->email}}</td>
                 <td>{{implode(', ', $user->getRoles())}}</td>
                 <td>
-                    <a class="actionButton" href=""><span class="glyphicon glyphicon-eye-open"></span></a>
-                    <a class="actionButton" href=""><span class="glyphicon glyphicon-edit"></span></a>
+                    @if(! $user->hasRole('admin'))
+                        <a class="actionButton" href="{{URL::to('/dashboardUserMessages?user_id=' . $user->id)}}"><span class="glyphicon glyphicon-envelope"></span></a>
+                    @endif
                 </td>
             </tr>
         @endforeach
