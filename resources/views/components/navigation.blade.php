@@ -13,6 +13,9 @@
                 <a href="{{URL::to('/')}}" class="{{ Request::is('/') ? 'active' : '' }}">{{__('Naslovna')}}</a>
             </li>
             <li>
+                <a href="{{URL::to('/goals')}}" class="{{ Request::is('goals') ? 'active' : '' }}">{{__('Naša vizija')}}</a>
+            </li>
+            <li>
                 <a href="{{URL::to('/about')}}" class="{{ Request::is('about') ? 'active' : '' }}">{{__('O nama')}}</a>
             </li>
             <li>

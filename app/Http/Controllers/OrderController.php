@@ -42,7 +42,7 @@ class OrderController extends Controller
             $validationData['amount'] = $valueOfCurrencyInRsd;
         }
 
-        $validator = Validator::make($validationData, Order::rules());
+        $validator = Validator::make($validationData, Order::rules(), Order::messages());
 
         if ($validator->fails()) {
             return [

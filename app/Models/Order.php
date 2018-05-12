@@ -19,7 +19,15 @@ class Order extends Model
             'wallet' => 'required|string',
         ];
     }
-
+    public static function messages()
+    {
+        return [
+            'min' => 'Minimalna vrednost narudžbine mora biti :min dinara.',
+            'max' => 'Maksimalna vrednost narudžbine ne sme prelaziti :max dinara.',
+            'required' => 'Ovo polje je obavezno.',
+            'numeric' => 'Samo brojevi mogu biti upisani u ovo polje.',
+        ];
+    }
     public function user()
     {
         return $this->belongsTo('App\User');

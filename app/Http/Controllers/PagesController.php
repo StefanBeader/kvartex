@@ -10,6 +10,10 @@ class PagesController extends Controller
     {
         return view('frontPages.homepage');
     }
+    public function goals()
+    {
+        return view('frontPages.goals');
+    }
     public function about()
     {
         return view('frontPages.about');

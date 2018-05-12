@@ -10,6 +10,7 @@ Auth::routes();
 */
 
 Route::get('/', 'PagesController@homepage');
+Route::get('/goals', 'PagesController@goals');
 Route::get('/about', 'PagesController@about');
 Route::get('/contact', 'PagesController@contact');
 Route::get('/sendEmail', 'PagesController@sendEmail');
