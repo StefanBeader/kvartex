@@ -32,6 +32,10 @@
         .action {
             z-index: 101;
         }
+        #sell h2,
+        #sell p {
+            color: #f2c902;
+        }
 
         #buyButton button {
             background-color: #f2c902;

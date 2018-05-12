@@ -16,6 +16,7 @@
     <table class="table table-striped">
         <thead>
             <th>{{__('Ime')}}</th>
+            <th>{{__('Korisničko Ime')}}</th>
             <th>{{__('Email')}}</th>
             <th>{{__('Prava')}}</th>
             <th>{{__('Poruke')}}</th>
@@ -25,6 +26,7 @@
         @foreach($users as $user)
             <tr>
                 <td>{{$user->name}}</td>
+                <td>{{$user->nickname}}</td>
                 <td>{{$user->email}}</td>
                 <td>{{implode(', ', $user->getRoles())}}</td>
                 <td>
