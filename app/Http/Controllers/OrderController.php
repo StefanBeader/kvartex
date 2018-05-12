@@ -38,7 +38,7 @@ class OrderController extends Controller
 
         if ($request->order_type_id == Order::SELL) {
             $currency = strtolower(Currency::getName($request->currency_id));
-            $valueOfCurrencyInRsd = CryptoCurrency::find(1)->$currency * 100 * $request->amount;
+            $valueOfCurrencyInRsd = (CryptoCurrency::orderByDesc('created_at')->first())->$currency * 100 * $request->amount;
             $validationData['amount'] = $valueOfCurrencyInRsd;
         }
 
