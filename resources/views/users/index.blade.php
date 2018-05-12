@@ -36,12 +36,12 @@
                     @if($user->can_trade === \App\User::CAN_TRADE)
                         <a href="{{URL::to('traderStatus?user_id=' . $user->id . '&status_id=2')}}"
                            data-toggle="tooltip" data-placement="bottom" title="Ukloni prava trgovanja korisniku">
-                            <span class="glyphicon glyphicon-remove alert-danger"></span>
+                            <span class="glyphicon glyphicon-ok alert-success"></span>
                         </a>
                     @else
                         <a href="{{URL::to('traderStatus?user_id=' . $user->id . '&status_id=1')}}"
                            data-toggle="tooltip" data-placement="bottom" title="Dodaj prava trgovanja korisniku">
-                            <span class="glyphicon glyphicon-ok alert-success"></span>
+                            <span class="glyphicon glyphicon-remove alert-danger"></span>
                         </a>
                     @endif
                 </td>
