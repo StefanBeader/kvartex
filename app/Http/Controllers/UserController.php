@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -67,5 +68,13 @@ class UserController extends Controller
         $user->update($updateData);
         $request->session()->flash('status', 'Task was successful!');
         return redirect('/account');
+    }
+
+    public function traderStatus(Request $request)
+    {
+        $user = User::find($request->user_id);
+        $user->can_trade = $request->status_id;
+        $user->save();
+        return redirect()->back();
     }
 }

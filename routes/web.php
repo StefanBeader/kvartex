@@ -53,6 +53,9 @@ Route::group(['middleware' => ['role:admin']], function() {
 //DASHBOARD
     Route::get('/dashboard', 'DashboardController@index')->middleware('auth');
 
+//ROLES
+    Route::get('/traderStatus', 'UserController@traderStatus')->middleware('auth');
+
 //GENERAL CONFIG
     Route::put('/config/update', 'GeneralConfigController@update')->middleware('auth');
     Route::get('/config', 'GeneralConfigController@edit')->middleware('auth');

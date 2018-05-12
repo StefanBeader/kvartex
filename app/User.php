@@ -11,6 +11,9 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Authenticatable
 {
+    const CAN_TRADE = 1;
+    const CAN_NOT_TRADE = 2;
+
     use Notifiable, EntrustUserTrait;
 
     /**
