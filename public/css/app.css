@@ -3,6 +3,42 @@
 body {
   font-family: 'Open Sans', sans-serif;
 }
+.small-nav-wrapper {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #1d1e20;
+  z-index: 1;
+}
+.small-nav {
+  display: grid;
+  height: 100%;
+  grid-template-rows: 100px auto auto;
+}
+#small-auth {
+  justify-self: center;
+}
+#small-burger {
+  margin-top: 30px;
+  justify-self: center;
+}
+
+#small-links {
+  justify-self: center;
+  align-self: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#small-links li a {
+  padding: 15px 20px;
+  font-size: 16px;
+  color: #f2c902;
+  display: inline-block;
+}
 
 .margin-top-small {
   margin-top: 15px;
@@ -351,6 +387,9 @@ section:hover button.showForm {
   .sectionContainer {
     width: 70%;
   }
+  label {
+    font-size: 12px;
+  }
 
   .form-control {
     height: 34px;
@@ -378,21 +417,32 @@ section:hover button.showForm {
 
 @media only screen and (max-width: 850px) {
   section {
-    min-height: calc(50vh - 50px);
+    min-height: 50vh;
+    max-height: 100vh;
   }
 
   .sectionContainer {
     width: 100%;
   }
 
-  #sellBackground {
-    display: none !important;
-  }
-
+  #sellBackground,
   #buyBackground {
     display: none !important;
   }
-
+  nav {
+    grid-template-columns: 250px 1fr;
+  }
+  #burger {
+    align-self: center;
+    justify-self: right;
+  }
+  .glyphicon-menu-hamburger {
+    font-size: 40px;
+    color: #f2c902;
+    border: 4px solid #f2c902;
+    padding: 6px;
+    border-radius: 4px;
+  }
   #links,
   #auth {
     display: none;

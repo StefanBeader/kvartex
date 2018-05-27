@@ -39,6 +39,16 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
     {{--<script src="{{ asset('js/app.js') }}"></script>--}}
+    <script>
+        $(document).ready(function () {
+            $("#burger").click(function () {
+               $(".small-nav-wrapper").fadeIn();
+            });
+            $("#small-burger").click(function () {
+                $(".small-nav-wrapper").fadeOut();
+            });
+        });
+    </script>
     @yield('customScripts')
 
 </body>
