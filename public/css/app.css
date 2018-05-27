@@ -3,6 +3,9 @@
 body {
   font-family: 'Open Sans', sans-serif;
 }
+#burger {
+  display: none;
+}
 .small-nav-wrapper {
   display: none;
   position: absolute;
@@ -419,7 +422,9 @@ section:hover button.showForm {
   section {
     min-height: 50vh;
   }
-
+  #burger {
+    display: block;
+  }
   .sectionContainer {
     width: 100%;
   }
@@ -449,6 +454,9 @@ section:hover button.showForm {
 }
 
 @media only screen and (max-width: 450px) {
+  #burger {
+    display: block;
+  }
   section {
     height: auto;
     min-height: 50vh !important;
