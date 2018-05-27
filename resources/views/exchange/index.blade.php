@@ -106,6 +106,18 @@
             grid-column-gap: 5px;
         }
 
+        @media only screen and (max-width: 450px) {
+            section {
+                min-height: 50vh;
+            }
+
+            #buyFormContainer,
+            #sellFormContainer {
+                width: 90%;
+            }
+
+        }
+
     </style>
 @endsection
 

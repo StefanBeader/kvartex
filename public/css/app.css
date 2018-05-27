@@ -418,7 +418,6 @@ section:hover button.showForm {
 @media only screen and (max-width: 850px) {
   section {
     min-height: 50vh;
-    max-height: 100vh;
   }
 
   .sectionContainer {
@@ -451,9 +450,16 @@ section:hover button.showForm {
 
 @media only screen and (max-width: 450px) {
   section {
-    min-height: calc(50vh - 50px);
+    height: auto;
+    min-height: 50vh !important;
+    padding: 30px 15px;
   }
-
+  .sectionContainer {
+    min-height: 50vh;
+  }
+  .glyphicon-menu-hamburger {
+    font-size: 30px;
+  }
   .bannerText {
     width: auto;
   }
