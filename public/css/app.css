@@ -488,5 +488,9 @@ section:hover button.showForm {
     grid-template-columns: 1fr;
     justify-items: center;
   }
+
+  section:hover button.showForm {
+    font-size: 40px;
+  }
 }
 
