@@ -108,7 +108,7 @@
 
         @media only screen and (max-width: 450px) {
             section {
-                min-height: 50vh;
+               height: auto;
             }
 
             #buyFormContainer,
